@@ -253,6 +253,9 @@ function RunTest($scriptPath, $Platform, $testexes)
 			}
 			write-host "`n`tSetting by env variable:$env:COMMON_CONNECTION_STRING_FOR_REGRESSION_TEST"
 			.\runsuite $testexes --inputdir=$origdir 2>&1 | Tee-Object -Variable runsuiteOutput
+			if ($LASTEXITCODE -ne 0) {
+				throw "`trunsuite error"
+			}
 
 			# Check whether mimalloc ran by searching for a verbose message from mimalloc
 			if ($ExpectMimalloc -xor ($runsuiteOutput -match "mimalloc: process done")) {
