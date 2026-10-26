@@ -45,6 +45,7 @@ function LoadConfiguration([string]$configPath, [string]$configDir)
 			$configPath = $env:PSQLODBC_WCONFIG
 		}
 	}
+	$configPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($configPath)
 	set-variable -name configurationXmlPath -scope 1 -value $configPath
 	if (!(Test-Path -path $configPath))
 	{
